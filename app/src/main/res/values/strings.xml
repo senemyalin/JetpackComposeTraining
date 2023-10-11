@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">JetpackComposeTraining</string>
+
+    <string name="random_meal">Random Meal</string>
+    <string name="detail">Detail</string>
+    <string name="search_meal">Search Meal</string>
+    <string name="category">Category</string>
+    <string name="unknown_error">Unknown Error</string>
+</resources>
