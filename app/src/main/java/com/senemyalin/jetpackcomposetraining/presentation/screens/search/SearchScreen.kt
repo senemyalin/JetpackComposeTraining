@@ -115,6 +115,10 @@ fun GetSearchMealResults(
         null -> {
             //DO NOTHING
         }
+
+        MealUiState.Idle -> {
+            //DO NOTHING
+        }
     }
 }
 

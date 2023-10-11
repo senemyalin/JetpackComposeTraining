@@ -9,6 +9,8 @@ sealed class MealUiState {
     object Loading : MealUiState()
     data class Success(val data: List<MealEntity>) : MealUiState()
     data class Error(@StringRes val message: Int) : MealUiState()
+    object Idle : MealUiState()
+
 }
 
 sealed class FilteredMealUiState {
@@ -21,4 +23,5 @@ sealed class CategoryUiState {
     object Loading : CategoryUiState()
     data class Success(val data: List<Category>) : CategoryUiState()
     data class Error(@StringRes val message: Int) : CategoryUiState()
+    object Idle : CategoryUiState()
 }

@@ -19,7 +19,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
@@ -30,7 +29,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
 import com.senemyalin.jetpackcomposetraining.R
 import com.senemyalin.jetpackcomposetraining.data.repository.model.MealEntity
@@ -42,7 +40,7 @@ import com.senemyalin.jetpackcomposetraining.ui.theme.MiddleGreen
 
 @Composable
 fun DetailScreen(
-    viewModel: DetailViewModel = viewModel(), navigateToBack: () -> Unit
+    viewState: MealUiState, navigateToBack: () -> Unit
 ) {
     val showProgressBarState = remember { mutableStateOf(false) }
     val showProgressBar by rememberUpdatedState(showProgressBarState.value)
@@ -61,18 +59,19 @@ fun DetailScreen(
                     .background(LightGreen),
                 contentAlignment = Alignment.Center
             ) {
-                GetDetails(viewModel, showProgressBarState)
+                if (showProgressBar) {
+                    CustomCircularProgressBar()
+                }
+
+                GetDetails(viewState, showProgressBarState)
             }
+
         },
     )
-    if (showProgressBar) {
-        CustomCircularProgressBar()
-    }
 }
 
 @Composable
-fun GetDetails(viewModel: DetailViewModel, showProgressBarState: MutableState<Boolean>) {
-    val viewState: MealUiState? by viewModel.details.observeAsState()
+fun GetDetails(viewState: MealUiState, showProgressBarState: MutableState<Boolean>) {
 
     when (viewState) {
         is MealUiState.Error -> {
@@ -85,7 +84,7 @@ fun GetDetails(viewModel: DetailViewModel, showProgressBarState: MutableState<Bo
 
         is MealUiState.Success -> {
             showProgressBarState.value = true
-            val result = (viewState as MealUiState.Success).data
+            val result = viewState.data
             if (result.isEmpty().not()) {
                 SetDetails(
                     result[0]
@@ -94,7 +93,7 @@ fun GetDetails(viewModel: DetailViewModel, showProgressBarState: MutableState<Bo
             showProgressBarState.value = false
         }
 
-        null -> {
+        MealUiState.Idle -> {
             //DO NOTHING
         }
     }

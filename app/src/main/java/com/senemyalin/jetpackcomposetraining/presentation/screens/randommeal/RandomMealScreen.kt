@@ -93,6 +93,10 @@ fun GetMealData(
         null -> {
             //DO NOTHING
         }
+
+        MealUiState.Idle -> {
+            //DO NOTHING
+        }
     }
 }
 

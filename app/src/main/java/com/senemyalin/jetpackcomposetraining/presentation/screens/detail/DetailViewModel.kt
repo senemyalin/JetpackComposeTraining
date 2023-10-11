@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.senemyalin.jetpackcomposetraining.R
 import com.senemyalin.jetpackcomposetraining.common.Extensions.fromJson
 import com.senemyalin.jetpackcomposetraining.common.NetworkResponse
@@ -18,25 +17,19 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val getMealDetailsByIdUseCase: GetMealDetailsByIdUseCase
 ) : ViewModel() {
 
     private val _details = MutableLiveData<MealUiState>()
     val details: LiveData<MealUiState> get() = _details
 
-    init {
-        savedStateHandle.get<String>("mealId")?.let {
-            val mealId = it.fromJson<String>()
-            if (mealId != null) {
-                getMealDetails(mealId)
-            }
-        }
-    }
+    private fun getMealId() = savedStateHandle.get<String>("mealId")?.fromJson<String>() ?: ""
 
-    private fun getMealDetails(id: String) {
+    fun getMealDetails() {
+        val mealId = getMealId()
         viewModelScope.launch {
-            getMealDetailsByIdUseCase(id).collectLatest {
+            getMealDetailsByIdUseCase(mealId).collectLatest {
                 when (it) {
                     is NetworkResponse.Error -> _details.postValue(
                         MealUiState.Error(R.string.unknown_error)
