@@ -1,19 +1,19 @@
-# <p align="center"> JetpackComposeTraining </p>
+# <p align="center"> JetpackComposeTraining ✨ </p>
 • This application is made %100 with [Kotlin](https://developer.android.com/kotlin)<br>
 • Jetpack Compose, Navigation Component, Coroutines, Flow, Retrofit, MVVM, Hilt, and Glide are the technologies that are used.<br>
 </p>
 
-## Screens
+## 🖥️ Screens
 • Category<br>
 • Category Content<br>
 • Random Meal<br>
 • Meal Details<br>
 • Search<br>
 
-## Api
+## 👇 Api
 • [TheMealDb](https://www.themealdb.com/api.php)
 
-## License
+## 📜 License
 
 ```xml
 MIT License
