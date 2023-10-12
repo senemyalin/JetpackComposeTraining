@@ -1,5 +1,6 @@
 # <p align="center"> JetpackComposeTraining ✨ </p>
-• This application is made %100 with [Kotlin](https://developer.android.com/kotlin)<br>
+• This application is made %100 with [Kotlin](https://developer.android.com/kotlin).<br>
+• MVVM with Clean Architecture includes. <br>
 • Jetpack Compose, Navigation Component, Coroutines, Flow, Retrofit, MVVM, Hilt, and Glide are the technologies that are used.<br>
 </p>
 
